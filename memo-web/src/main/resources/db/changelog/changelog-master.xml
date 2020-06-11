@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+  <!-- change sets accumulated with each version of release -->
+
+  <!-- new change sets below -->
+  <changeSet author="Elvin Shrestha" id="1-create-hibernate_sequence">
+    <preConditions onFail="MARK_RAN">
+      <not>
+        <tableExists tableName="hibernate_sequence"/>
+      </not>
+    </preConditions>
+
+    <createTable tableName="hibernate_sequence">
+      <column name="next_val" type="BIGINT"/>
+    </createTable>
+  </changeSet>
+
+</databaseChangeLog>
