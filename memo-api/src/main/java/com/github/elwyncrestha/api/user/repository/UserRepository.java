@@ -11,4 +11,5 @@ import com.github.elwyncrestha.api.user.entity.User;
 @Repository
 public interface UserRepository extends BaseRepository<User, Long> {
 
+    User findUserByUsername(String username);
 }

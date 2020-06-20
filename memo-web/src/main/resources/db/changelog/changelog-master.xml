@@ -20,14 +20,14 @@
     </createTable>
   </changeSet>
 
-  <changeSet id="2-create-user" author="Elvin Shrestha">
+  <changeSet id="2-create-users" author="Elvin Shrestha">
     <preConditions onFail="MARK_RAN">
       <not>
-        <tableExists tableName="user"/>
+        <tableExists tableName="users"/>
       </not>
     </preConditions>
 
-    <createTable tableName="user">
+    <createTable tableName="users">
       <column name="id" type="BIGINT">
         <constraints nullable="false" primaryKey="true" primaryKeyName="PK_USER"/>
       </column>
@@ -48,6 +48,57 @@
       <column name="email" type="VARCHAR(255)"/>
       <column name="status" type="INT"/>
     </createTable>
+  </changeSet>
+
+  <changeSet id="3-create-role" author="Elvin Shrestha">
+    <preConditions onFail="MARK_RAN">
+      <not>
+        <tableExists tableName="role"/>
+      </not>
+    </preConditions>
+
+    <createTable tableName="role">
+      <column name="id" type="BIGINT">
+        <constraints nullable="false" primaryKey="true" primaryKeyName="PK_ROLE"/>
+      </column>
+      <column name="created_at" type="DATETIME">
+        <constraints nullable="false"/>
+      </column>
+      <column name="last_modified_at" type="DATETIME">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_by" type="BIGINT">
+        <constraints foreignKeyName="FK_ROLE_CREATED_BY_USERS_ID"
+          referencedTableName="users"
+          referencedColumnNames="id"/>
+      </column>
+      <column name="last_modified_by" type="BIGINT">
+        <constraints foreignKeyName="FK_ROLE_LAST_MODIFIED_BY_USERS_ID"
+          referencedTableName="users"
+          referencedColumnNames="id"/>
+      </column>
+      <column name="version" type="INT"/>
+      <column name="name" type="VARCHAR(255)"/>
+      <column name="status" type="INT"/>
+      <column name="role_type" type="INT"/>
+      <column name="role_access" type="INT"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="3-alter-users-add-role_id" author="Elvin Shrestha">
+    <preConditions>
+      <not>
+        <columnExists tableName="users" columnName="role_id"/>
+      </not>
+    </preConditions>
+
+    <addColumn tableName="users">
+      <column name="role_id" type="BIGINT">
+        <constraints foreignKeyName="FK_USERS_ROLE_ID_ROLE_ID"
+          referencedTableName="role"
+          referencedColumnNames="id"/>
+      </column>
+    </addColumn>
   </changeSet>
 
 </databaseChangeLog>

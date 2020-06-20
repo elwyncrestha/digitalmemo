@@ -9,7 +9,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,60 +19,55 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.github.elwyncrestha.core.dto.BaseMapper;
 import com.github.elwyncrestha.core.dto.RestResponseDto;
 import com.github.elwyncrestha.core.service.BaseService;
 import com.github.elwyncrestha.core.utils.PaginationUtils;
 
 /**
  * @param <E> Entity
- * @param <D> DTO
  * @param <I> ID
  * @author Elvin Shrestha on 6/14/2020
  */
-public abstract class BaseController<E, D, I> {
+public abstract class BaseController<E, I> {
 
     private final Logger logger;
 
     private final BaseService<E, I> service;
-    private final BaseMapper<E, D> mapper;
 
     protected BaseController(
         BaseService<E, I> service,
-        BaseMapper<E, D> mapper,
         Class<?> loggerClass
     ) {
         this.service = service;
-        this.mapper = mapper;
         this.logger = LoggerFactory.getLogger(loggerClass);
     }
 
     @PostMapping
-    public ResponseEntity<?> save(@Valid @RequestBody D dto) {
+    public ResponseEntity<?> save(@Valid @RequestBody E e) {
 
-        final E saved = service.save(mapper.mapDtoToEntity(dto));
+        final E saved = service.save(e);
 
         if (null == saved) {
-            logger.error("Error while saving {}", dto);
+            logger.error("Error while saving {}", e);
             return new RestResponseDto()
-                .fail(HttpStatus.INTERNAL_SERVER_ERROR, Optional.of("Error while saving " + dto));
+                .fail(HttpStatus.INTERNAL_SERVER_ERROR, Optional.of("Error while saving " + e));
         }
 
-        return new RestResponseDto().success(mapper.mapEntityToDto(saved));
+        return new RestResponseDto().success(saved);
     }
 
     @PostMapping("/all")
-    public ResponseEntity<?> saveAll(@Valid @RequestBody List<D> dto) {
+    public ResponseEntity<?> saveAll(@Valid @RequestBody List<E> e) {
 
-        final List<E> saved = service.saveAll(mapper.mapDtoListToEntityList(dto));
+        final List<E> saved = service.saveAll(e);
 
         if (null == saved) {
-            logger.error("Error while saving {}", dto);
+            logger.error("Error while saving {}", e);
             return new RestResponseDto()
-                .fail(HttpStatus.INTERNAL_SERVER_ERROR, Optional.of("Error while saving " + dto));
+                .fail(HttpStatus.INTERNAL_SERVER_ERROR, Optional.of("Error while saving " + e));
         }
 
-        return new RestResponseDto().success(mapper.mapEntityListToDtoList(saved));
+        return new RestResponseDto().success(saved);
     }
 
     @GetMapping("/{i}")
@@ -84,12 +78,12 @@ public abstract class BaseController<E, D, I> {
             return new RestResponseDto().fail(HttpStatus.NOT_FOUND, Optional.empty());
         }
 
-        return new RestResponseDto().success(mapper.mapEntityToDto(e.get()));
+        return new RestResponseDto().success(e.get());
     }
 
     @GetMapping("/all")
     public ResponseEntity<?> getAll() {
-        return new RestResponseDto().success(mapper.mapEntityListToDtoList(service.findAll()));
+        return new RestResponseDto().success(service.findAll());
     }
 
     @PostMapping("/one")
@@ -101,7 +95,7 @@ public abstract class BaseController<E, D, I> {
             return new RestResponseDto().fail(HttpStatus.NOT_FOUND, Optional.empty());
         }
 
-        return new RestResponseDto().success(mapper.mapEntityToDto(e.get()));
+        return new RestResponseDto().success(e.get());
     }
 
     @PostMapping("/list")
@@ -112,10 +106,8 @@ public abstract class BaseController<E, D, I> {
         final Map<String, String> filters = getFilterParams(filter);
 
         final Page<E> entities = service.findPageableBySpec(filters, pageable);
-        final Page<D> dtos = new PageImpl<>(mapper.mapEntityListToDtoList(entities.getContent()),
-            pageable, entities.getTotalElements());
 
-        return new RestResponseDto().success(dtos);
+        return new RestResponseDto().success(entities);
     }
 
     @DeleteMapping("/{i}")
@@ -124,13 +116,13 @@ public abstract class BaseController<E, D, I> {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/all")
+    @PostMapping("/list/all")
     public ResponseEntity<?> getAllBySpec(@RequestBody Object filter) {
 
         final Map<String, String> filters = getFilterParams(filter);
 
         return new RestResponseDto()
-            .success(mapper.mapEntityListToDtoList(service.findAllBySpec(filters)));
+            .success(service.findAllBySpec(filters));
     }
 
     private Map<String, String> getFilterParams(Object filter) {

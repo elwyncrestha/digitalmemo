@@ -22,6 +22,7 @@ spring:
     properties:
       hibernate:
         enable_lazy_load_no_trans: true
+    show-sql: true
   liquibase:
     change-log: classpath:/db/changelog/changelog-master.xml
 

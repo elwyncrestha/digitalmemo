@@ -3,6 +3,7 @@ package com.github.elwyncrestha.api.user.entity;
 import java.util.Collection;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,13 +12,14 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.github.elwyncrestha.api.role.entity.Role;
 import com.github.elwyncrestha.core.entity.BaseEntity;
 import com.github.elwyncrestha.core.enums.Status;
 
 /**
  * @author Elvin Shrestha on 6/14/2020
  */
-@Entity
+@Entity(name = "users")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -29,6 +31,9 @@ public class User extends BaseEntity<Long> implements UserDetails {
     private String name;
     private String email;
     private Status status;
+
+    @OneToOne
+    private Role role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

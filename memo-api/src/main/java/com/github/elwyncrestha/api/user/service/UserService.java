@@ -8,4 +8,7 @@ import com.github.elwyncrestha.api.user.entity.User;
  */
 public interface UserService extends BaseService<User, Long> {
 
+    User findByUsername(String username);
+
+    User getAuthenticated();
 }
