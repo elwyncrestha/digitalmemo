@@ -9,11 +9,13 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import com.github.elwyncrestha.core.config.CustomAuditorAware;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication(scanBasePackages = "com.github.elwyncrestha")
 @EnableJpaRepositories(basePackages = "com.github.elwyncrestha")
 @EntityScan(basePackages = "com.github.elwyncrestha")
 @EnableJpaAuditing(auditorAwareRef = "auditorProvider")
+@EnableSwagger2
 public class DigitalMemoApplication {
 
 	public static void main(String[] args) {
