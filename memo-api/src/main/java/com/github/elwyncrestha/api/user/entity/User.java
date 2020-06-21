@@ -42,7 +42,7 @@ public class User extends BaseEntity<Long> implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
+        return password;
     }
 
     @Override
