@@ -19,6 +19,6 @@ BEGIN
                               version, username, password, name, email, status, role_id)
             VALUES (1, '2020-06-20 15:30:00', '2020-06-20 15:30:00', NULL, NULL, 0, 'spadmin',
                     '$2a$10$CGkAwfRBRIMVoEX8Ui9yx.NC03wKCjE19KIGVNET2F1mn0o58jkly',
-                    'The Administrator', NULL, 0, 1)
+                    'The Administrator', NULL, 1, 1)
         END
 END;
