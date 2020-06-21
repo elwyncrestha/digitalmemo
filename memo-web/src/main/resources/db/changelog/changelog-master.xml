@@ -28,7 +28,7 @@
     </preConditions>
 
     <createTable tableName="users">
-      <column name="id" type="BIGINT">
+      <column name="id" type="BIGINT" autoIncrement="true">
         <constraints nullable="false" primaryKey="true" primaryKeyName="PK_USER"/>
       </column>
       <column name="created_at" type="DATETIME">
@@ -58,7 +58,7 @@
     </preConditions>
 
     <createTable tableName="role">
-      <column name="id" type="BIGINT">
+      <column name="id" type="BIGINT" autoIncrement="true">
         <constraints nullable="false" primaryKey="true" primaryKeyName="PK_ROLE"/>
       </column>
       <column name="created_at" type="DATETIME">

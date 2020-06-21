@@ -35,10 +35,11 @@ public class BaseEntity<PK extends Serializable> extends AbstractPersistable<PK>
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @LastModifiedDate
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = false)
     private LocalDateTime lastModifiedAt = LocalDateTime.now();
 
     @CreatedBy
+    @Column(updatable = false)
     private Long createdBy;
 
     @LastModifiedBy

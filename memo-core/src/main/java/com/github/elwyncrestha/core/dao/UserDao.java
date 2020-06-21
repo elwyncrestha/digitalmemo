@@ -24,7 +24,7 @@ public class UserDao {
     }
 
     public Long getAuthenticatedUserId(String username) {
-        String query = "SELECT id from [user] where username = :username";
+        String query = "SELECT id from users where username = :username";
         Map<String, Object> map = new HashMap<>();
         map.put(USERNAME, username);
         return namedParameterJdbcTemplate.queryForObject(query, map, Long.class);

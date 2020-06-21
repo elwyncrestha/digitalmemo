@@ -1,9 +1,9 @@
 package com.github.elwyncrestha.api.user.entity;
 
 import java.util.Collection;
-
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,7 +19,8 @@ import com.github.elwyncrestha.core.enums.Status;
 /**
  * @author Elvin Shrestha on 6/14/2020
  */
-@Entity(name = "users")
+@Entity
+@Table(name = "users")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
