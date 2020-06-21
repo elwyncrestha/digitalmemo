@@ -9,6 +9,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
  * @author Elvin Shrestha on 6/20/2020
+ * TODO: Migrate Resource Server from Spring Security OAuth to Spring Security
+ * https://github.com/spring-projects/spring-security/wiki/OAuth-2.0-Migration-Guide
  */
 @Configuration
 @EnableResourceServer

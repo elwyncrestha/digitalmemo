@@ -19,6 +19,9 @@ import org.springframework.security.oauth2.provider.token.store.InMemoryTokenSto
 
 /**
  * @author Elvin Shrestha on 6/20/2020
+ * TODO: Migrate Authorization Server from Spring Security OAuth to Spring Security
+ * At the time, Spring Authorization Server project is in development.
+ * https://github.com/spring-projects/spring-security/wiki/OAuth-2.0-Migration-Guide
  */
 @Configuration
 @EnableAuthorizationServer
