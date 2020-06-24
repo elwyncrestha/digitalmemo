@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.github.elwyncrestha.api.user.entity.User;
 import com.github.elwyncrestha.api.user.service.UserService;
 import com.github.elwyncrestha.core.controller.BaseController;
+import com.github.elwyncrestha.core.dto.RestResponseDto;
 
 /**
  * @author Elvin Shrestha on 6/20/2020
@@ -30,6 +31,6 @@ public class UserController extends BaseController<User, Long> {
 
     @GetMapping("/authenticated")
     public ResponseEntity<?> getAuthenticated() {
-        return ResponseEntity.ok(service.getAuthenticated());
+        return new RestResponseDto().success(service.getAuthenticated());
     }
 }
