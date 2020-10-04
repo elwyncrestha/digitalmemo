@@ -133,4 +133,93 @@
     </createTable>
   </changeSet>
 
+  <changeSet id="5-create-memo_stage" author="Elvin Shrestha">
+    <preConditions onFail="MARK_RAN">
+      <not>
+        <tableExists tableName="memo_stage"/>
+      </not>
+    </preConditions>
+
+    <createTable tableName="memo_stage">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints nullable="false" primaryKey="true" primaryKeyName="PK_MEMO_STAGE"/>
+      </column>
+      <column name="created_at" type="DATETIME">
+        <constraints nullable="false"/>
+      </column>
+      <column name="last_modified_at" type="DATETIME">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_by" type="BIGINT">
+        <constraints foreignKeyName="FK_MEMO_STAGE_CREATED_BY_USERS_ID"
+          referencedTableName="users"
+          referencedColumnNames="id"/>
+      </column>
+      <column name="last_modified_by" type="BIGINT">
+        <constraints foreignKeyName="FK_MEMO_STAGE_LAST_MODIFIED_BY_USERS_ID"
+          referencedTableName="users"
+          referencedColumnNames="id"/>
+      </column>
+      <column name="version" type="INT"/>
+      <column name="from_user_id" type="BIGINT">
+        <constraints foreignKeyName="FK_MEMO_STAGE_FROM_USER_ID_USERS_ID"
+          referencedTableName="users"
+          referencedColumnNames="id"/>
+      </column>
+      <column name="to_user_id" type="BIGINT">
+        <constraints foreignKeyName="FK_MEMO_STAGE_TO_USER_ID_USERS_ID"
+          referencedTableName="users"
+          referencedColumnNames="id"/>
+      </column>
+      <column name="doc_action" type="INT"/>
+      <column name="comment" type="LONGTEXT"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="5-create-memo" author="Elvin Shrestha">
+    <preConditions onFail="MARK_RAN">
+      <not>
+        <tableExists tableName="memo"/>
+      </not>
+    </preConditions>
+
+    <createTable tableName="memo">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints nullable="false" primaryKey="true" primaryKeyName="PK_MEMO"/>
+      </column>
+      <column name="created_at" type="DATETIME">
+        <constraints nullable="false"/>
+      </column>
+      <column name="last_modified_at" type="DATETIME">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_by" type="BIGINT">
+        <constraints foreignKeyName="FK_MEMO_CREATED_BY_USERS_ID"
+          referencedTableName="users"
+          referencedColumnNames="id"/>
+      </column>
+      <column name="last_modified_by" type="BIGINT">
+        <constraints foreignKeyName="FK_MEMO_LAST_MODIFIED_BY_USERS_ID"
+          referencedTableName="users"
+          referencedColumnNames="id"/>
+      </column>
+      <column name="version" type="INT"/>
+      <column name="type_id" type="BIGINT">
+        <constraints foreignKeyName="FK_MEMO_TYPE_ID_MEMO_TYPE_ID"
+          referencedTableName="memo_type"
+          referencedColumnNames="id"/>
+      </column>
+      <column name="reference_number" type="VARCHAR(255)"/>
+      <column name="subject" type="VARCHAR(255)"/>
+      <column name="content" type="LONGTEXT"/>
+      <column name="document_status" type="INT"/>
+      <column name="previous_stage_list" type="LONGTEXT"/>
+      <column name="current_stage_id" type="BIGINT">
+        <constraints foreignKeyName="FK_MEMO_CURRENT_STAGE_ID_MEMO_STAGE_ID"
+          referencedTableName="memo_stage"
+          referencedColumnNames="id"/>
+      </column>
+    </createTable>
+  </changeSet>
+
 </databaseChangeLog>
