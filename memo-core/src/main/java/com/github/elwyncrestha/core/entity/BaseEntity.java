@@ -22,8 +22,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 /**
  * @author Elvin Shrestha on 6/14/2020
  */
-@Getter(AccessLevel.PROTECTED)
-@Setter(AccessLevel.PROTECTED)
+@Getter(AccessLevel.PUBLIC)
+@Setter(AccessLevel.PUBLIC)
 @EqualsAndHashCode(callSuper = true)
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
