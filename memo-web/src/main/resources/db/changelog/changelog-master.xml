@@ -100,4 +100,37 @@
     </addColumn>
   </changeSet>
 
+  <changeSet id="4-create-memo_type" author="Elvin Shrestha">
+    <preConditions onFail="MARK_RAN">
+      <not>
+        <tableExists tableName="memo_type"/>
+      </not>
+    </preConditions>
+
+    <createTable tableName="memo_type">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints nullable="false" primaryKey="true" primaryKeyName="PK_MEMO_TYPE"/>
+      </column>
+      <column name="created_at" type="DATETIME">
+        <constraints nullable="false"/>
+      </column>
+      <column name="last_modified_at" type="DATETIME">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_by" type="BIGINT">
+        <constraints foreignKeyName="FK_MEMO_TYPE_CREATED_BY_USERS_ID"
+          referencedTableName="users"
+          referencedColumnNames="id"/>
+      </column>
+      <column name="last_modified_by" type="BIGINT">
+        <constraints foreignKeyName="FK_MEMO_TYPE_LAST_MODIFIED_BY_USERS_ID"
+          referencedTableName="users"
+          referencedColumnNames="id"/>
+      </column>
+      <column name="version" type="INT"/>
+      <column name="name" type="VARCHAR(255)"/>
+      <column name="status" type="INT"/>
+    </createTable>
+  </changeSet>
+
 </databaseChangeLog>
