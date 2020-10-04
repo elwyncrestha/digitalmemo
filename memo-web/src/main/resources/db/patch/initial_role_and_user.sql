@@ -6,9 +6,9 @@ BEGIN
         BEGIN
             SET IDENTITY_INSERT role ON
             INSERT INTO role (id, created_at, last_modified_at, created_by, last_modified_by,
-                              version, name, status, role_type, role_access)
+                              version, name, status, role_type)
             VALUES (1, '2020-06-20 15:30:00', '2020-06-20 15:30:00', NULL, NULL, 0, 'Administrator',
-                    0, 1, 2)
+                    0, 0)
             SET IDENTITY_INSERT role OFF
         END
 

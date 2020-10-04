@@ -8,7 +8,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import com.github.elwyncrestha.core.entity.BaseEntity;
-import com.github.elwyncrestha.core.enums.RoleAccess;
 import com.github.elwyncrestha.core.enums.RoleType;
 import com.github.elwyncrestha.core.enums.Status;
 
@@ -28,5 +27,4 @@ public class Role extends BaseEntity<Long> {
 
     private RoleType roleType = RoleType.APPROVAL;
 
-    private RoleAccess roleAccess = RoleAccess.OWN;
 }

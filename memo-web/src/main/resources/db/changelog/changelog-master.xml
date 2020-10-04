@@ -81,7 +81,6 @@
       <column name="name" type="VARCHAR(255)"/>
       <column name="status" type="INT"/>
       <column name="role_type" type="INT"/>
-      <column name="role_access" type="INT"/>
     </createTable>
   </changeSet>
 

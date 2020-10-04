@@ -5,7 +5,7 @@ package com.github.elwyncrestha.core.enums;
  */
 public enum RoleType {
 
-    MAKER("Maker"), APPROVAL("Approval");
+    ADMINISTRATOR("Administrator"), MAKER("Maker"), APPROVAL("Approval");
 
     private final String value;
 
