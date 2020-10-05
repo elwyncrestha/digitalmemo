@@ -8,6 +8,10 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -18,6 +22,7 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.lang.Nullable;
 
 /**
  * @author Elvin Shrestha on 6/14/2020
@@ -32,10 +37,14 @@ public class BaseEntity<PK extends Serializable> extends AbstractPersistable<PK>
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
+    @JsonSerialize(using = ToStringSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @LastModifiedDate
     @Column(nullable = false)
+    @JsonSerialize(using = ToStringSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime lastModifiedAt = LocalDateTime.now();
 
     @CreatedBy
@@ -47,4 +56,9 @@ public class BaseEntity<PK extends Serializable> extends AbstractPersistable<PK>
 
     @Version
     private int version;
+
+    @Override
+    public void setId(@Nullable PK id) {
+        super.setId(id);
+    }
 }

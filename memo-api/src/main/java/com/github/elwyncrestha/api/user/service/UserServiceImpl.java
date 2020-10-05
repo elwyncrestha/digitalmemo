@@ -1,5 +1,6 @@
 package com.github.elwyncrestha.api.user.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.security.core.Authentication;
@@ -66,5 +67,10 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements User
                 "User is not authenticated; Found of type " + authentication.getPrincipal()
                     .getClass() + "; Expected type User");
         }
+    }
+
+    @Override
+    public List<User> findByRoleId(Long roleId) {
+        return repository.findByRoleId(roleId);
     }
 }

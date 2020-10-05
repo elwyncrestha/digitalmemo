@@ -7,7 +7,7 @@ public enum DocAction {
     DRAFT("Draft"),
     FORWARD("Forward"),
     BACKWARD("Backward"),
-    APPROVED("Approved"),
+    APPROVE("Approve"),
     REJECT("Reject");
 
     private final String value;

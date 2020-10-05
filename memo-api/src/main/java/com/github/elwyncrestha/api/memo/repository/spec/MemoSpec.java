@@ -38,7 +38,7 @@ public class MemoSpec implements Specification<Memo> {
                         .join("currentStage", JoinType.LEFT)
                         .join("toUser")
                         .get("id"),
-                    Long.valueOf("id"));
+                    Long.valueOf(value));
             default:
                 return null;
         }
